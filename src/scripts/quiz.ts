@@ -190,17 +190,23 @@ function checkAnswers() {
 }
 
 export function initQuiz() {
-  const { btn } = getElements();
+  const { btn, inputs } = getElements();
 
   btn.addEventListener("click", checkAnswers);
 
-  // Enter key to submit from any input
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !state.checked) {
+  // Enter key: advance to next input, or submit on the last one
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" || state.checked) return;
       e.preventDefault();
-      checkAnswers();
-    }
-  });
+
+      if (i < inputs.length - 1) {
+        inputs[i + 1].focus();
+      } else {
+        checkAnswers();
+      }
+    });
+  }
 
   loadRound();
 }
