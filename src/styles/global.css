@@ -51,6 +51,30 @@ body {
   max-width: 480px;
 }
 
+.page-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-nav a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.page-nav a[aria-current="page"] {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
 /* ── Header ── */
 .header {
   text-align: center;
@@ -191,6 +215,17 @@ body {
   transform: none;
 }
 
+.btn-ghost {
+  margin-top: 0.8rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-input);
+}
+
 /* ── Countdown bar ── */
 .countdown-bar {
   width: 100%;
@@ -258,6 +293,63 @@ body {
   font-size: 0.7rem;
   color: var(--text-muted);
   opacity: 0.6;
+}
+
+.scene-card {
+  width: 100%;
+  min-height: 200px;
+  background: linear-gradient(160deg, #22273c 0%, #171a27 100%);
+  border: 1px solid #323a5d;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.scene-card svg {
+  width: min(94%, 320px);
+  height: auto;
+}
+
+.choices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.choice-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.75rem 0.65rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.choice-btn:hover {
+  border-color: var(--accent);
+}
+
+.choice-btn:active {
+  transform: scale(0.985);
+}
+
+.choice-btn.correct,
+.choice-btn.is-answer {
+  border-color: var(--green);
+  background: var(--green-bg);
+}
+
+.choice-btn.incorrect {
+  border-color: var(--red);
+  background: var(--red-bg);
+}
+
+.choice-btn:disabled {
+  cursor: not-allowed;
 }
 
 /* ── Animations ── */
@@ -334,5 +426,9 @@ body {
   .input-wrapper input {
     font-size: 16px; /* prevents iOS auto-zoom on focus */
     padding: 0.5rem 0.6rem;
+  }
+
+  .choices-grid {
+    grid-template-columns: 1fr;
   }
 }

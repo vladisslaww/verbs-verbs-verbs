@@ -1,10 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Conjugaison">
   <div class="card">
+    <nav class="page-nav" aria-label="Pages">
+      <a href={base} aria-current="page">Conjugaison</a>
+      <a href={`${base}/prepositions/`}>Prepositions</a>
+    </nav>
+
     <div class="header">
       <h1>Conjugaison</h1>
       <div class="verb" id="verb">—</div>

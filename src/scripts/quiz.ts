@@ -1,6 +1,7 @@
 import { verbs, type CompactVerb, type TenseName } from "../data/verbs.ts";
 import { conjugate, withPronoun } from "../data/conjugate.ts";
 import type { FullFormTuple } from "../data/types.ts";
+import { addPoints, loadScore } from "./score.ts";
 
 const TENSES: TenseName[] = [
   "présent",
@@ -12,7 +13,6 @@ const TENSES: TenseName[] = [
 ];
 
 const ADVANCE_DELAY = 5000;
-const STORAGE_KEY = "vvv-score";
 
 interface Round {
   verb: CompactVerb;
@@ -26,23 +26,6 @@ interface State {
   totalPoints: number;
   roundPoints: number;
   timer: ReturnType<typeof setTimeout> | null;
-}
-
-function loadScore(): number {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? parseInt(stored, 10) || 0 : 0;
-  } catch {
-    return 0;
-  }
-}
-
-function saveScore(points: number): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, String(points));
-  } catch {
-    // localStorage unavailable — silently ignore
-  }
 }
 
 const state: State = {
@@ -165,8 +148,7 @@ function checkAnswers() {
 
   // Update scores
   state.roundPoints = correctCount;
-  state.totalPoints += correctCount;
-  saveScore(state.totalPoints);
+  state.totalPoints = addPoints(correctCount);
   updateScoreDisplay();
 
   // Show round result

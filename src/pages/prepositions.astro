@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Prepositions de lieu">
+  <div class="card">
+    <nav class="page-nav" aria-label="Pages">
+      <a href={base}>Conjugaison</a>
+      <a href={`${base}/prepositions/`} aria-current="page">Prepositions</a>
+    </nav>
+
+    <div class="header">
+      <h1>Prepositions de lieu</h1>
+      <div class="verb" id="prep-prompt">Que montre cette image ?</div>
+      <div class="translation" id="prep-helper">Hint</div>
+      <div class="tense" id="prep-cluster">Cluster</div>
+    </div>
+
+    <div class="scene-card" id="prep-scene" role="img" aria-label="Scene"></div>
+
+    <div class="choices-grid" id="prep-choices" aria-live="polite"></div>
+
+    <button class="btn btn-ghost" id="prep-skip" type="button">Passer</button>
+
+    <div class="round-score" id="prep-round-score"></div>
+    <div class="score" id="prep-score"></div>
+    <div class="hint" id="prep-streak"></div>
+  </div>
+
+  <script>
+    import { initPrepositionsQuiz } from "../scripts/prepositions.ts";
+    initPrepositionsQuiz();
+  </script>
+</Layout>
